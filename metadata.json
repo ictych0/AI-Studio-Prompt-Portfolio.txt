@@ -1,0 +1,7 @@
+{
+  "name": "Futureproof with AI — Portfolio",
+  "description": "Cinematografisch, minimalistisch AI portfolio voor de minor Futureproof met AI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
