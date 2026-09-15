@@ -54,14 +54,14 @@ export const AboutSection: React.FC = () => {
   const currentStory = storyItems.find((s) => s.id === activeStoryTab) || storyItems[0];
 
   const skillPills = [
-    "Prompt Architectuur",
-    "Midjourney v6.1 & Niji",
-    "Runway Gen-3 Alpha",
-    "Claude & LLM Regie",
-    "Magnific AI Upscaling",
-    "Menselijke Curatie",
-    "Ethiek & Auteurschap",
-    "Haute Couture Post-Production"
+    "B2B Account Management",
+    "MEDDPICC Methodiek",
+    "Claude 3.5 Sonnet & LLM Regie",
+    "Sales Intelligence (Apollo / Gong)",
+    "Consultative Selling",
+    "Prompt Structuur & Triangulatie",
+    "Sales Funnel & Forecasting",
+    "Onderhandelen & Contract Closing"
   ];
 
   return (

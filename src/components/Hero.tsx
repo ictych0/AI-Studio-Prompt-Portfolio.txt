@@ -5,9 +5,10 @@ import { PORTFOLIO_PROFILE } from '../data/portfolioData';
 
 interface HeroProps {
   onExploreClick: () => void;
+  onOpenCareerPage?: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onExploreClick }) => {
+export const Hero: React.FC<HeroProps> = ({ onExploreClick, onOpenCareerPage }) => {
   const [mousePos, setMousePos] = useState({ x: -500, y: -500 });
   const [typedRole, setTypedRole] = useState('');
   const [currentTime, setCurrentTime] = useState('');
@@ -25,10 +26,10 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick }) => {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.15]);
 
   const roles = [
-    'Visueel AI Maker & Ontwerper',
-    'Creatief Technoloog',
-    'Specialist in Synthetische Couture',
-    'Mens & Machine Curator'
+    'Commerciële Economie Student',
+    'Toekomstig Account Executive',
+    'B2B Sales & AI Onderzoeker',
+    'Minor Futureproof met AI'
   ];
 
   // Typewriter effect in Dutch
@@ -201,17 +202,17 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick }) => {
               <span className="w-0.5 h-6 bg-[#b8860b] ml-1 animate-pulse" />
             </div>
             <p className="text-xs sm:text-sm text-[#8a8a8a] font-light leading-relaxed max-w-md">
-              Een onderzoekend portfolio over synthetische couture, prompt-architectuur en esthetische regie binnen de minor Futureproof met AI.
+              Onderzoek naar de droombaan van Account Executive, de toepassing van salestech & AI, en het belang van menselijke consultative vaardigheden.
             </p>
           </div>
 
           {/* Right: Dutch CTAs */}
           <div className="lg:col-span-6 flex flex-col sm:flex-row sm:items-center justify-start lg:justify-end gap-4">
             <button
-              onClick={onExploreClick}
+              onClick={onOpenCareerPage || onExploreClick}
               className="px-7 py-3 bg-[#b8860b] hover:bg-[#d4a843] text-[#050505] font-bold text-xs uppercase tracking-[0.16em] rounded-[2px] transition-all flex items-center justify-center gap-2.5 shadow-lg shadow-[#b8860b]/20 cursor-pointer"
             >
-              <span>Bekijk Onderzoek</span>
+              <span>My Future Career (RS01 & RS02)</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
 

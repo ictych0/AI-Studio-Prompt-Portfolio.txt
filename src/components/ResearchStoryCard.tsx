@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CheckCircle2, Copy, Check, ExternalLink, Sparkles, BookOpen, Layers, Target, Compass, Scale, Terminal } from 'lucide-react';
 import { ResearchStory } from '../types/portfolio';
+import { useFadeInOnScroll } from '../hooks/useFadeInOnScroll';
 
 interface ResearchStoryCardProps {
   story: ResearchStory;
@@ -9,6 +10,7 @@ interface ResearchStoryCardProps {
 export const ResearchStoryCard: React.FC<ResearchStoryCardProps> = ({ story }) => {
   const [activeTab, setActiveTab] = useState<number>(0);
   const [copiedPrompt, setCopiedPrompt] = useState(false);
+  const { ref, animationClasses } = useFadeInOnScroll<HTMLElement>({ threshold: 0.08 });
 
   const handleCopyPrompt = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -35,7 +37,10 @@ export const ResearchStoryCard: React.FC<ResearchStoryCardProps> = ({ story }) =
       ];
 
   return (
-    <article className="border border-white/[0.08] bg-[#070707] rounded-[3px] p-5 sm:p-7 space-y-5 relative overflow-hidden transition-all duration-300 hover:border-white/20">
+    <article
+      ref={ref}
+      className={`border border-white/[0.08] bg-[#070707] rounded-[3px] p-5 sm:p-7 space-y-5 relative overflow-hidden transition-all duration-700 ease-out hover:border-white/20 ${animationClasses}`}
+    >
       {/* Top Meta Bar */}
       <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-3 border-b border-white/[0.06] pb-4">
         <div className="flex items-center gap-3">

@@ -119,14 +119,14 @@ export const StudentGuideModal: React.FC<StudentGuideModalProps> = ({ isOpen, on
           <div className="space-y-3">
             <div className="flex items-center gap-2 text-base font-bold text-[#f0ece4]">
               <FileText className="w-4 h-4 text-[#b8860b]" />
-              <span>4. Waar pas ik mijn Onderzoeksverhalen (RS 01 & RS 02) aan?</span>
+              <span>4. Waar pas ik MY FUTURE CAREER (RS01 & RS02) aan?</span>
             </div>
             <p className="text-xs sm:text-sm text-[#8a8a8a] leading-relaxed">
-              Jouw formele minor Research Stories over de <strong className="text-[#f0ece4]">Impact van AI op de Beroepspraktijk</strong> (RS // 01) en je <strong className="text-[#f0ece4]">Droombaan in het AI-Tijdperk</strong> (RS // 02) met bijbehorende acceptatiecriteria en kwaliteitscriteria staan in:
+              Het complete nieuwe dossier voor <strong className="text-[#f0ece4]"># MY FUTURE CAREER</strong> (RS01 Account Executive, RS02 AI & The Future of Sales, criteria, prompts, McKinsey/Gartner bronnen en jouw persoonlijke motivatie) staat in:
               <br />
-              <code className="text-[#b8860b] font-mono bg-[#141414] px-2 py-0.5 rounded border border-white/10 mt-1 inline-block">src/data/researchStoriesData.ts</code>
+              <code className="text-[#b8860b] font-mono bg-[#141414] px-2 py-0.5 rounded border border-white/10 mt-1 inline-block">src/data/careerResearchData.ts</code>
               <br />
-              Hier kun je de bronnen, voor- en nadelen, casussen, prompts en persoonlijke motivatie direct aanpassen.
+              Hier kun je alle teksten, casestudies en reflecties eenvoudig editen of uitbreiden.
             </p>
           </div>
 

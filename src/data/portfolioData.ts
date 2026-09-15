@@ -16,9 +16,9 @@ export const PORTFOLIO_PROFILE: PortfolioProfile = {
   tagline: "FUTUREPROOF MET AI",
   subTagline: "Minor Portfolio // Academiejaar 2025 – 2026",
   
-  editorialStatement: "Waar menselijke creativiteit, barokke esthetiek en synthetische intelligentie samenkomen in een compromisloze beeldtaal.",
+  editorialStatement: "Commerciële Economie student, toekomstig Account Executive en onderzoeker naar de impact van AI op modern B2B sales leiderschap.",
   
-  studyProgramme: "Creative Media & Game Technologies / Communicatie & Multimedia Design",
+  studyProgramme: "Commerciële Economie",
   minorName: "Futureproof met AI",
   minorPeriod: "Academiejaar 2025 – 2026",
   
@@ -27,17 +27,17 @@ export const PORTFOLIO_PROFILE: PortfolioProfile = {
   secondaryPortrait: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=80",
   
   aboutStory: {
-    whoAmI: "Ik ben Tycho Somers, maker en ontwerper op het snijvlak van esthetiek, haute couture visuele cultuur en opkomende technologieën. Waar traditioneel minimalisme heerst in de tech-wereld, kies ik bewust voor overdaad, grandeur en barokke expressie.",
-    education: "Vanuit mijn achtergrond onderzoek ik hoe digitale tools menselijke verbeelding kunnen versterken in plaats van standaardiseren.",
-    whyFutureproofAI: "Ik heb deze minor gekozen om voorbij de oppervlakkige 'snelle prompts' te kijken. Ik wil begrijpen hoe AI ingrijpt op creatief auteurschap, conceptontwikkeling en ethische vraagstukken rondom digitale creatie.",
-    aiInterests: "De spanning tussen machine-hallucinatie en menselijke curatie. De kitsch van oneindige synthese, en hoe je als ontwerper de regie behoudt over esthetische finesse en cinematografische compositie.",
-    minorGoals: "Mijn doel tijdens de minor is het ontwikkelen van een kritische, maar visueel compromisloze praktijk waarin AI fungeert als digitaal atelier, sparringpartner en esthetische provocateur."
+    whoAmI: "Ik ben Tycho Somers, student Commerciële Economie met een passie voor high-stakes B2B sales, resultaatgericht onderhandelen en de transformatieve kracht van kunstmatige intelligentie in het commerciële speelveld.",
+    education: "Vanuit mijn studie Commerciële Economie focus ik op koopprocessen, waardeproposities en strategische klantrelaties in een snel digitaliserende markt.",
+    whyFutureproofAI: "Ik heb de minor Futureproof met AI gekozen om te ontdekken hoe AI de commerciële praktijk herdefinieert. Als toekomstig Account Executive wil ik niet toekijken, maar vooroplopen in het beheersen van AI om administratie te elimineren en maximale klantwaarde te creëren.",
+    aiInterests: "De synergie tussen geavanceerde salestech (zoals predictive intent data en conversation intelligence) en de onmisbare menselijke factor: empathie, strategisch inzicht en consultative vertrouwen.",
+    minorGoals: "Het neerzetten van een academisch gefundeerd en realistisch onderzoek naar mijn droombaan als Account Executive en de impact van AI op de toekomstige salespraktijk."
   },
   
   editorialQuotes: [
-    "“AI is niet het einde van vakmanschap, maar een uitnodiging tot digitale extravagantie en regie.”",
-    "“Haute couture ontmoet synthetische hallucinaties — schoonheid smeden aan de rand van computationele ruis.”",
-    "“Het algoritme genereert de suggestie; de mens smeedt het tot een meesterwerk.”"
+    "“AI vervangt niet de Account Executive, maar de Account Executive die AI beheerst, vervangt degene die dat niet doet.”",
+    "“In een wereld vol machinale massamailings wordt authentieke menselijke empathie het ultieme luxegoed in B2B verkoop.”",
+    "“Het algoritme signaleert de koopprikkel; de mens bouwt het partnerschap.”"
   ],
   
   contactEmail: "tycho.somers@gmail.com",
