@@ -22,9 +22,9 @@ export const PORTFOLIO_PROFILE: PortfolioProfile = {
   minorName: "Futureproof met AI",
   minorPeriod: "Academiejaar 2025 – 2026",
   
-  // Editorial portret placeholders (luxe fashion / editorial composities)
-  portraitImage: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=80",
-  secondaryPortrait: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=80",
+  // Authentieke portretten van Tycho Somers (geplaatst via de directe uploader / localStorage)
+  portraitImage: "",
+  secondaryPortrait: "",
   
   aboutStory: {
     whoAmI: "Ik ben Tycho Somers, student Commerciële Economie met een passie voor high-stakes B2B sales, resultaatgericht onderhandelen en de transformatieve kracht van kunstmatige intelligentie in het commerciële speelveld.",
@@ -111,8 +111,8 @@ export const PROJECTS_DATA: ProjectItem[] = [
         caption: "Detailstudie van de gouden borduursels en fluweelstructuren."
       },
       {
-        url: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=80",
-        caption: "Editorial spread compositie met overlappende typografie."
+        url: "/images/digital-haute-couture.jpg",
+        caption: "Editorial spread compositie met overlappende typografie en gouden filigraan."
       },
       {
         url: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1200&q=80",
@@ -268,7 +268,7 @@ export const RESEARCH_DATA: ResearchItem[] = [
     results: "De echte waarde verplaatst zich van de creatie naar het verhaal, de conceptuele diepgang en de kritische reflectie op de gebruikte data.",
     conclusion: "Schaarste in het AI-tijdperk is niet meer de pixel, maar de intentie en de menselijke smaak achter het werk.",
     learnings: "Transparantie over je werkwijze maakt je werk juist krachtiger in plaats van kwetsbaar.",
-    image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=80"
+    image: "/images/luxury-craft-ai.jpg"
   }
 ];
 

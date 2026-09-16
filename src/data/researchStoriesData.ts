@@ -88,7 +88,7 @@ export const RESEARCH_STORIES_DATA: ResearchStory[] = [
         tag: "Voorbeeld 2 // Digitale Haute Couture",
         description: "Digitale ateliers benutten diffusiemodellen om stoffen, goudborduurwerk en ingewikkelde patronen te simuleren die fysiek onbetaalbaar of technisch onmogelijk zijn. Pas wanneer een digitaal ontwerp tractie krijgt op virtuele kanalen, wordt de fysieke confectie gestart. Dit elimineert overproductie en opent de deur naar zuivere 'computational couture'.",
         impact: "Drastische reductie van textielafval in de prototypefase. Pioniers zoals The Fabricant tonen aan dat virtuele kledingstukken als volwaardige culturele en commerciële producten functioneren.",
-        image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1000&q=80"
+        image: "/images/digital-haute-couture.jpg"
       },
       {
         title: "Devaluatie van Uitvoering vs. Waardestijging van Smaak & Curatie",

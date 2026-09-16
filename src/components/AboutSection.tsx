@@ -1,8 +1,14 @@
 import React, { useState, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { PORTFOLIO_PROFILE } from '../data/portfolioData';
+import { InteractivePortraitFrame } from './InteractivePortraitFrame';
 
-export const AboutSection: React.FC = () => {
+interface AboutSectionProps {
+  portraitSrc?: string | null;
+  onPhotoUpdated?: (dataUrl: string) => void;
+}
+
+export const AboutSection: React.FC<AboutSectionProps> = ({ portraitSrc, onPhotoUpdated }) => {
   const [activeStoryTab, setActiveStoryTab] = useState<'who' | 'education' | 'why' | 'interests' | 'goals'>('who');
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -96,25 +102,21 @@ export const AboutSection: React.FC = () => {
           
           {/* Left: Clean, Unboxed Portrait with Subtle Metadata */}
           <div className="lg:col-span-5">
-            <div className="relative aspect-[3/4] max-w-[420px] rounded-[3px] overflow-hidden shadow-2xl border border-white/[0.06]">
-              <img
-                src={PORTFOLIO_PROFILE.portraitImage}
-                alt={PORTFOLIO_PROFILE.name}
-                referrerPolicy="no-referrer"
-                className="w-full h-full object-cover filter contrast-[1.04] brightness-95"
+            <div className="relative max-w-[420px]">
+              <InteractivePortraitFrame
+                target="secondary"
+                imageSrc={portraitSrc}
+                label="Tycho Somers (L'Amour Paris)"
+                subLabel="Sleep 'Afbeelding.jpeg' hierheen of klik om te uploaden"
+                aspectRatioClass="aspect-[3/4]"
+                onPhotoUpdated={onPhotoUpdated}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/75 via-transparent to-transparent pointer-events-none" />
               
-              <div className="absolute bottom-4 left-5 right-5 flex justify-between items-end">
-                <div>
-                  <span className="text-[10px] tracking-[0.2em] text-[#b8860b] uppercase font-mono block mb-0.5">
-                    MAKER // MINOR 2025–2026
-                  </span>
-                  <span className="font-editorial text-xl text-[#f0ece4] font-bold">
-                    {PORTFOLIO_PROFILE.name}
-                  </span>
-                </div>
-                <span className="text-[10px] font-mono text-[#8a8a8a] tracking-widest">FIG. 02</span>
+              <div className="mt-3 flex justify-between items-center text-xs font-mono text-[#8a8a8a]">
+                <span className="text-[10px] tracking-[0.2em] text-[#b8860b] uppercase">
+                  MAKER // COMMERCIËLE ECONOMIE
+                </span>
+                <span className="text-[10px] tracking-widest text-[#666]">FIG. 02</span>
               </div>
             </div>
 

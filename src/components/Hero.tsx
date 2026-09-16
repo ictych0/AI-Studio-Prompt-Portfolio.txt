@@ -2,13 +2,16 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { PORTFOLIO_PROFILE } from '../data/portfolioData';
+import { InteractivePortraitFrame } from './InteractivePortraitFrame';
 
 interface HeroProps {
   onExploreClick: () => void;
   onOpenCareerPage?: () => void;
+  portraitSrc?: string | null;
+  onPhotoUpdated?: (dataUrl: string) => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onExploreClick, onOpenCareerPage }) => {
+export const Hero: React.FC<HeroProps> = ({ onExploreClick, onOpenCareerPage, portraitSrc, onPhotoUpdated }) => {
   const [mousePos, setMousePos] = useState({ x: -500, y: -500 });
   const [typedRole, setTypedRole] = useState('');
   const [currentTime, setCurrentTime] = useState('');
@@ -100,40 +103,32 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick, onOpenCareerPage }) 
       ref={heroRef}
       onMouseMove={handleMouseMove}
       id="home"
-      className="relative min-h-[100dvh] flex flex-col justify-between pt-24 pb-8 px-6 sm:px-12 lg:px-20 bg-[#050505] text-[#f0ece4] overflow-hidden select-none"
+      className="relative min-h-[100dvh] flex flex-col justify-between pt-24 sm:pt-28 pb-10 px-6 sm:px-12 lg:px-20 bg-[#050505] text-[#f0ece4] overflow-hidden select-none"
     >
-      {/* 1. Viewport Corner Accents */}
-      <div className="absolute top-6 left-6 w-3 h-3 border-t border-l border-white/20 pointer-events-none z-20" />
-      <div className="absolute top-6 right-6 w-3 h-3 border-t border-r border-white/20 pointer-events-none z-20" />
-      <div className="absolute bottom-6 left-6 w-3 h-3 border-b border-l border-white/20 pointer-events-none z-20" />
-      <div className="absolute bottom-6 right-6 w-3 h-3 border-b border-r border-white/20 pointer-events-none z-20" />
-
-      {/* 2. Cursor Glow Effect */}
+      {/* 1. Subtle Background Cursor Glow */}
       <div
-        className="pointer-events-none absolute z-0 w-[600px] h-[600px] rounded-full blur-[100px] transition-transform duration-100 ease-out opacity-40"
+        className="pointer-events-none absolute z-0 w-[600px] h-[600px] rounded-full blur-[100px] transition-transform duration-100 ease-out opacity-35"
         style={{
           background: 'radial-gradient(circle, rgba(184, 134, 11, 0.22) 0%, rgba(5, 5, 5, 0) 70%)',
           transform: `translate(${mousePos.x - 300}px, ${mousePos.y - 300}px)`,
         }}
       />
 
-      {/* 3. Top Floating Status Bar in Dutch */}
-      <div className="relative z-10 flex items-center justify-between text-[11px] font-mono tracking-[0.2em] text-[#8a8a8a] uppercase border-b border-white/[0.06] pb-4">
+      {/* 2. Top Sub-Header Information Line */}
+      <div className="relative z-10 flex items-center justify-between text-[11px] font-mono tracking-[0.22em] text-[#8a8a8a] uppercase py-2">
         <div className="flex items-center gap-3">
-          <span className="w-5 h-[1px] bg-[#b8860b]" />
-          <span className="text-[#f0ece4]">PORTFOLIO 2025 / 2026</span>
-          <span className="text-[#444] hidden sm:inline">//</span>
-          <span className="text-[#8a8a8a] hidden sm:inline">MINOR FUTUREPROOF MET AI</span>
+          <span className="w-6 h-[1px] bg-[#b8860b]" />
+          <span className="text-[#f0ece4] font-medium">PORTFOLIO 2025 / 2026</span>
+          <span className="text-white/20 hidden sm:inline">//</span>
+          <span className="text-[#8a8a8a] hidden sm:inline">COMMERCIËLE ECONOMIE</span>
         </div>
 
-        <div className="flex items-center gap-5">
-          <span className="hidden md:inline text-[#555]">AMSTERDAM, NL</span>
+        <div className="flex items-center gap-4 text-[10px]">
+          <span className="hidden sm:inline text-[#666]">AMSTERDAM</span>
           <span className="flex items-center gap-1.5 text-[#b8860b]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#b8860b] animate-pulse" />
             <span>{currentTime || '12:00 CET'}</span>
           </span>
-          <span className="text-[#444]">//</span>
-          <span className="text-[#f0ece4]">001<span className="text-[#555]">/∞</span></span>
         </div>
       </div>
 
@@ -159,20 +154,17 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick, onOpenCareerPage }) 
             style={{ y: yPortrait }}
             className="my-[-2.5rem] sm:my-[-4rem] lg:my-[-5.5rem] z-10 flex justify-center pointer-events-auto will-change-transform"
           >
-            <div className="relative w-full max-w-[260px] sm:max-w-[320px] lg:max-w-[360px] aspect-[3/4] rounded-[3px] overflow-hidden shadow-[0_30px_90px_rgba(0,0,0,0.95)] border border-[#b8860b]/30 group">
-              
-              <img
-                src={PORTFOLIO_PROFILE.portraitImage}
-                alt="Tycho Somers"
-                referrerPolicy="no-referrer"
-                className="w-full h-full object-cover filter contrast-[1.05] brightness-95 group-hover:scale-105 transition-transform duration-1000 ease-out"
+            <div className="relative w-full max-w-[260px] sm:max-w-[320px] lg:max-w-[360px]">
+              <InteractivePortraitFrame
+                target="primary"
+                imageSrc={portraitSrc}
+                label="Tycho Somers"
+                subLabel="Sleep 'Afbeelding 1.jpeg' hierheen of klik om te uploaden"
+                onPhotoUpdated={onPhotoUpdated}
               />
 
-              {/* Cinematic Vignette */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/85 via-transparent to-[#050505]/20 pointer-events-none" />
-
               {/* Status Badge in Dutch */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#050505]/90 backdrop-blur-md border border-[#b8860b]/40 text-[10px] tracking-[0.18em] uppercase text-[#f0ece4] whitespace-nowrap shadow-xl font-mono">
+              <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#050505]/95 backdrop-blur-md border border-[#b8860b]/50 text-[10px] tracking-[0.18em] uppercase text-[#f0ece4] whitespace-nowrap shadow-2xl font-mono pointer-events-none z-20">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#4ade80]" />
                 <span>MINOR FUTUREPROOF MET AI</span>
               </div>

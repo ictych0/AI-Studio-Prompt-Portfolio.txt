@@ -7,17 +7,35 @@ import { AboutSection } from './components/AboutSection';
 import { ContactSection } from './components/ContactSection';
 import { MyFutureCareerPage } from './components/MyFutureCareerPage';
 import { StudentGuideModal } from './components/StudentGuideModal';
+import { PhotoManagerModal } from './components/PhotoManagerModal';
 import { FadeInCard } from './components/FadeInCard';
-import { Sparkles, ArrowRight, Target, Briefcase } from 'lucide-react';
+import { Sparkles, ArrowRight, Camera } from 'lucide-react';
+import { PORTFOLIO_PROFILE } from './data/portfolioData';
+import { getStoredPrimaryPhoto, getStoredSecondaryPhoto } from './utils/photoStorage';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<'career' | 'portfolio'>(() => {
-    if (typeof window !== 'undefined' && window.location.hash === '#portfolio') {
-      return 'portfolio';
+    if (typeof window !== 'undefined' && (window.location.hash === '#career' || window.location.hash.startsWith('#rs'))) {
+      return 'career';
     }
-    return 'career';
+    return 'portfolio';
   });
   const [isGuideOpen, setIsGuideOpen] = useState(false);
+  const [isPhotoManagerOpen, setIsPhotoManagerOpen] = useState(false);
+
+  // State for original photos
+  const [primaryPhoto, setPrimaryPhoto] = useState<string | null>(() => getStoredPrimaryPhoto());
+  const [secondaryPhoto, setSecondaryPhoto] = useState<string | null>(() => getStoredSecondaryPhoto());
+
+  // Listen to photo storage events across components
+  useEffect(() => {
+    const handlePhotosUpdated = () => {
+      setPrimaryPhoto(getStoredPrimaryPhoto());
+      setSecondaryPhoto(getStoredSecondaryPhoto());
+    };
+    window.addEventListener('tycho_photos_updated', handlePhotosUpdated);
+    return () => window.removeEventListener('tycho_photos_updated', handlePhotosUpdated);
+  }, []);
 
   // Sync hash changes
   useEffect(() => {
@@ -42,16 +60,22 @@ export default function App() {
     handleNavigatePage('career');
   };
 
+  const handleUpdatePhotos = (primary: string, secondary: string) => {
+    setPrimaryPhoto(primary);
+    setSecondaryPhoto(secondary);
+  };
+
   return (
     <div className="min-h-screen bg-[#050505] text-[#f0ece4] selection:bg-[#b8860b] selection:text-[#050505] relative overflow-x-hidden font-sans-body">
       {/* Precision Custom Cursor */}
       <CustomCursor />
 
-      {/* Cinematic Minimalist Navbar with Page Switcher */}
+      {/* Cinematic Minimalist Navbar with Page Switcher & Photo Upload */}
       <Navbar
         activePage={currentPage}
         onNavigatePage={handleNavigatePage}
         onOpenGuide={() => setIsGuideOpen(true)}
+        onOpenPhotoManager={() => setIsPhotoManagerOpen(true)}
       />
 
       <main className="pt-16">
@@ -62,25 +86,32 @@ export default function App() {
           <MyFutureCareerPage
             onBackToPortfolio={() => handleNavigatePage('portfolio')}
             onOpenGuide={() => setIsGuideOpen(true)}
+            portraitSrc={primaryPhoto}
+            onPhotoUpdated={(dataUrl) => setPrimaryPhoto(dataUrl)}
           />
         ) : (
           /* ========================================================= */
-          /* 2. GENERAL PORTFOLIO (CLEANED UP & PURPOSEFUL)            */
+          /* 2. GENERAL PORTFOLIO                                      */
           /* ========================================================= */
           <>
             {/* Full-Screen Minimalist Architectural Hero */}
             <Hero
               onExploreClick={handleExploreClick}
               onOpenCareerPage={() => handleNavigatePage('career')}
+              portraitSrc={primaryPhoto}
+              onPhotoUpdated={(dataUrl) => setPrimaryPhoto(dataUrl)}
             />
 
             {/* Running Divider Marquee */}
             <EditorialMarquee />
 
             {/* Over Mij & Visie (Tycho Somers, Commerciële Economie) */}
-            <AboutSection />
+            <AboutSection
+              portraitSrc={secondaryPhoto}
+              onPhotoUpdated={(dataUrl) => setSecondaryPhoto(dataUrl)}
+            />
 
-            {/* Featured High-Fashion Highlight for MY FUTURE CAREER */}
+            {/* Featured Highlight for MY FUTURE CAREER */}
             <section className="py-14 sm:py-20 px-6 sm:px-12 lg:px-20 border-b border-white/[0.08] bg-[#080808]">
               <div className="max-w-[1500px] mx-auto space-y-8">
                 <div className="flex flex-wrap items-end justify-between gap-4 border-b border-white/[0.08] pb-6">
@@ -113,16 +144,18 @@ export default function App() {
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-editorial text-2xl font-bold text-[#b8860b]">RS01</span>
-                      <Briefcase className="w-5 h-5 text-[#8a8a8a]" />
+                      <span className="text-[10px] font-mono tracking-widest uppercase text-[#8a8a8a] border border-white/10 px-2.5 py-0.5 rounded">
+                        Beroepsprofiel
+                      </span>
                     </div>
-                    <h3 className="font-editorial text-xl sm:text-2xl font-bold text-[#f0ece4]">
-                      MY DREAM JOB: ACCOUNT EXECUTIVE
+                    <h3 className="font-editorial text-xl font-bold text-[#f0ece4]">
+                      Droombaan: Account Executive B2B
                     </h3>
                     <p className="text-xs text-[#8a8a8a] leading-relaxed font-light">
-                      Onderzoek naar de werkzaamheden, vaardigheden, verantwoordelijkheden en persoonlijke match van een Account Executive in B2B sales.
+                      Functieprofiel, salarisbenchmarks (€45k - €120k OTE), kerncompetenties en de match met Commerciële Economie.
                     </p>
                     <span className="text-[11px] font-mono text-[#b8860b] block">
-                      Bekijk dossier & criteria →
+                      Bekijk analyse & motivatie →
                     </span>
                   </FadeInCard>
 
@@ -133,10 +166,12 @@ export default function App() {
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-editorial text-2xl font-bold text-[#b8860b]">RS02</span>
-                      <Target className="w-5 h-5 text-[#8a8a8a]" />
+                      <span className="text-[10px] font-mono tracking-widest uppercase text-[#8a8a8a] border border-white/10 px-2.5 py-0.5 rounded">
+                        AI & Innovatie
+                      </span>
                     </div>
-                    <h3 className="font-editorial text-xl sm:text-2xl font-bold text-[#f0ece4]">
-                      AI & THE FUTURE OF SALES
+                    <h3 className="font-editorial text-xl font-bold text-[#f0ece4]">
+                      De Toekomst van Sales met AI
                     </h3>
                     <p className="text-xs text-[#8a8a8a] leading-relaxed font-light">
                       Casestudies van conversation intelligence, geautomatiseerde prospecting, voordelen/nadelen matrix en prompt-structuur.
@@ -155,17 +190,33 @@ export default function App() {
         )}
       </main>
 
-      {/* Floating Student Helper Trigger Button */}
-      <div className="fixed bottom-6 right-6 z-40 hidden sm:block">
+      {/* Floating Buttons in Bottom Right */}
+      <div className="fixed bottom-6 right-6 z-40 flex items-center gap-3">
+        <button
+          onClick={() => setIsPhotoManagerOpen(true)}
+          className="px-3.5 py-1.5 bg-[#0e0e0e]/90 hover:bg-[#b8860b] text-[#8a8a8a] hover:text-[#050505] border border-white/10 hover:border-[#b8860b] rounded-full backdrop-blur-md transition-all flex items-center gap-2 text-[11px] uppercase tracking-wider font-mono cursor-pointer shadow-xl"
+          title="Klik hier om direct jouw eigen foto's te uploaden of aan te passen"
+        >
+          <Camera className="w-3.5 h-3.5 text-[#b8860b] hover:text-[#050505]" />
+          <span>Mijn Foto's</span>
+        </button>
+
         <button
           onClick={() => setIsGuideOpen(true)}
-          className="group px-3.5 py-1.5 bg-[#0e0e0e]/90 hover:bg-[#b8860b] text-[#8a8a8a] hover:text-[#050505] border border-white/10 hover:border-[#b8860b] rounded-full backdrop-blur-md transition-all flex items-center gap-2 text-[11px] uppercase tracking-wider font-mono cursor-pointer shadow-xl"
-          title="Klik hier voor de handleiding over hoe je teksten en foto's aanpast in code"
+          className="hidden sm:flex px-3.5 py-1.5 bg-[#0e0e0e]/90 hover:bg-[#b8860b] text-[#8a8a8a] hover:text-[#050505] border border-white/10 hover:border-[#b8860b] rounded-full backdrop-blur-md transition-all items-center gap-2 text-[11px] uppercase tracking-wider font-mono cursor-pointer shadow-xl"
+          title="Handleiding voor de minor"
         >
-          <Sparkles className="w-3.5 h-3.5 text-[#b8860b] group-hover:text-[#050505]" />
+          <Sparkles className="w-3.5 h-3.5 text-[#b8860b]" />
           <span>Aanpas Gids</span>
         </button>
       </div>
+
+      {/* Direct Photo Manager Modal */}
+      <PhotoManagerModal
+        isOpen={isPhotoManagerOpen}
+        onClose={() => setIsPhotoManagerOpen(false)}
+        onUpdatePhotos={handleUpdatePhotos}
+      />
 
       {/* Student Guide Modal */}
       <StudentGuideModal

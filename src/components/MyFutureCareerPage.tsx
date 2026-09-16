@@ -19,6 +19,7 @@ import {
   Sliders,
   ChevronLeft
 } from 'lucide-react';
+import { InteractivePortraitFrame } from './InteractivePortraitFrame';
 import {
   CAREER_RESEARCH_HEADER,
   RS01_DATA,
@@ -34,11 +35,15 @@ import {
 interface MyFutureCareerPageProps {
   onBackToPortfolio: () => void;
   onOpenGuide: () => void;
+  portraitSrc?: string | null;
+  onPhotoUpdated?: (dataUrl: string) => void;
 }
 
 export const MyFutureCareerPage: React.FC<MyFutureCareerPageProps> = ({
   onBackToPortfolio,
   onOpenGuide,
+  portraitSrc,
+  onPhotoUpdated,
 }) => {
   const [copiedPrompt, setCopiedPrompt] = useState(false);
   const [activeTabRS01, setActiveTabRS01] = useState<'profile' | 'why' | 'criteria'>('why');
@@ -60,68 +65,6 @@ export const MyFutureCareerPage: React.FC<MyFutureCareerPageProps> = ({
 
   return (
     <div className="min-h-screen bg-[#050505] text-[#f0ece4] selection:bg-[#b8860b] selection:text-[#050505] pb-24">
-      
-      {/* Top Floating Mini-Nav for Quick Jumps */}
-      <header className="sticky top-0 z-40 bg-[#050505]/90 backdrop-blur-md border-b border-white/[0.08] py-3.5 px-6 sm:px-12 lg:px-20 transition-all">
-        <div className="max-w-[1500px] mx-auto flex items-center justify-between gap-4">
-          
-          {/* Back to main portfolio */}
-          <button
-            onClick={onBackToPortfolio}
-            className="flex items-center gap-2 text-xs uppercase tracking-widest text-[#8a8a8a] hover:text-[#b8860b] transition-colors font-mono cursor-pointer group"
-          >
-            <ChevronLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-            <span>Terug naar Portfolio</span>
-          </button>
-
-          {/* Center Jump Links */}
-          <nav className="hidden lg:flex items-center gap-7">
-            <button
-              onClick={() => scrollToAnchor('career-overview')}
-              className="text-[11px] uppercase tracking-wider text-[#8a8a8a] hover:text-[#f0ece4] transition-colors font-mono cursor-pointer"
-            >
-              Overzicht
-            </button>
-            <button
-              onClick={() => scrollToAnchor('rs01-dream-job')}
-              className="text-[11px] uppercase tracking-wider text-[#8a8a8a] hover:text-[#f0ece4] transition-colors font-mono cursor-pointer flex items-center gap-1.5"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#b8860b]" />
-              <span>RS01 Droombaan</span>
-            </button>
-            <button
-              onClick={() => scrollToAnchor('why-ae')}
-              className="text-[11px] uppercase tracking-wider text-[#8a8a8a] hover:text-[#f0ece4] transition-colors font-mono cursor-pointer"
-            >
-              Waarom AE?
-            </button>
-            <button
-              onClick={() => scrollToAnchor('rs02-future-sales')}
-              className="text-[11px] uppercase tracking-wider text-[#8a8a8a] hover:text-[#f0ece4] transition-colors font-mono cursor-pointer flex items-center gap-1.5"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#d4a843]" />
-              <span>RS02 AI & Sales</span>
-            </button>
-            <button
-              onClick={() => scrollToAnchor('prompts-sources')}
-              className="text-[11px] uppercase tracking-wider text-[#8a8a8a] hover:text-[#f0ece4] transition-colors font-mono cursor-pointer"
-            >
-              Prompts & Bronnen
-            </button>
-          </nav>
-
-          {/* Guide button */}
-          <div className="flex items-center gap-3">
-            <button
-              onClick={onOpenGuide}
-              className="px-3 py-1 rounded-full border border-white/10 hover:border-[#b8860b] text-[10px] font-mono uppercase tracking-wider text-[#8a8a8a] hover:text-[#b8860b] transition-all flex items-center gap-1.5 cursor-pointer"
-            >
-              <Sparkles className="w-3 h-3 text-[#b8860b]" />
-              <span className="hidden sm:inline">Aanpas Gids</span>
-            </button>
-          </div>
-        </div>
-      </header>
 
       {/* ===================================================================== */}
       {/* 1. PAGE HERO                                                          */}
@@ -487,19 +430,21 @@ export const MyFutureCareerPage: React.FC<MyFutureCareerPageProps> = ({
 
             {/* Right: Editorial Visual Portrait / Modern Dealmaking */}
             <div className="lg:col-span-6 space-y-6">
-              <div className="relative aspect-[4/3] rounded-[3px] overflow-hidden border border-white/[0.1] shadow-2xl">
-                <img
-                  src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=80"
-                  alt="High-Stakes Commercial Negotiation Meeting"
-                  className="w-full h-full object-cover grayscale contrast-125"
+              <div className="relative">
+                <InteractivePortraitFrame
+                  target="primary"
+                  imageSrc={portraitSrc}
+                  label="Tycho Somers (Dealmaking Visie)"
+                  subLabel="Sleep 'Afbeelding 1.jpeg' hierheen of klik om te uploaden"
+                  aspectRatioClass="aspect-[4/3]"
+                  onPhotoUpdated={onPhotoUpdated}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4">
-                  <span className="font-serif-editorial italic text-base sm:text-lg text-[#f0ece4] block">
+                <div className="mt-3 p-4 bg-[#0a0a0a] border border-white/[0.08] rounded">
+                  <span className="font-serif-editorial italic text-sm sm:text-base text-[#f0ece4] block">
                     "Sales draait niet om forceren, maar om het diagnosticeren van behoeften en leveren van meetbare waarde."
                   </span>
                   <span className="text-[10px] font-mono text-[#b8860b] tracking-wider uppercase block mt-1">
-                    Tycho Somers // Visie op B2B Verkoop
+                    Tycho Somers // Visie op B2B Verkoop & Commerciële Economie
                   </span>
                 </div>
               </div>

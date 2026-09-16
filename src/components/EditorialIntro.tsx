@@ -49,8 +49,8 @@ export const EditorialIntro: React.FC = () => {
           >
             <div className="aspect-[4/5] rounded-[3px] overflow-hidden shadow-2xl relative border border-white/[0.06]">
               <img
-                src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=80"
-                alt="Haute couture textuur"
+                src="/images/silk-gold-atelier.jpg"
+                alt="Zijde en bladgoud sculptuur in digitaal atelier"
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover filter contrast-[1.05]"
               />
