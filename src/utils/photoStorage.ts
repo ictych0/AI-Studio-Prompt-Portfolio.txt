@@ -1,4 +1,6 @@
 // Central photo management for Tycho Somers' portfolio
+import tychoHeroImg from '../assets/images/tycho-hero.jpg';
+import tychoAboutImg from '../assets/images/tycho-about.jpg';
 
 export const PHOTO_KEYS = {
   PRIMARY: 'tycho_primary_portrait',
@@ -6,8 +8,8 @@ export const PHOTO_KEYS = {
 };
 
 export const DEFAULT_PHOTO_PATHS = {
-  PRIMARY: '/images/tycho-hero.jpg',
-  SECONDARY: '/images/tycho-about.jpg',
+  PRIMARY: tychoHeroImg,
+  SECONDARY: tychoAboutImg,
 };
 
 export function getStoredPrimaryPhoto(): string | null {

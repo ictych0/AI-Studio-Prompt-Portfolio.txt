@@ -1,4 +1,6 @@
 import { PortfolioProfile, ProjectItem, ResearchItem, LearningLog, AITransparencyEntry } from '../types/portfolio';
+import tychoHeroImg from '../assets/images/tycho-hero.jpg';
+import tychoAboutImg from '../assets/images/tycho-about.jpg';
 export { RESEARCH_STORIES_DATA } from './researchStoriesData';
 
 /*
@@ -22,9 +24,9 @@ export const PORTFOLIO_PROFILE: PortfolioProfile = {
   minorName: "Futureproof met AI",
   minorPeriod: "Academiejaar 2025 – 2026",
   
-  // Authentieke portretten van Tycho Somers (vastgelegd in public/images/ voor productie & Vercel)
-  portraitImage: "/images/tycho-hero.jpg",
-  secondaryPortrait: "/images/tycho-about.jpg",
+  // Authentieke portretten van Tycho Somers (fysiek meegebundeld in Vite assets voor 100% Vercel garantie)
+  portraitImage: tychoHeroImg,
+  secondaryPortrait: tychoAboutImg,
   
   aboutStory: {
     whoAmI: "Ik ben Tycho Somers, student Commerciële Economie met een passie voor high-stakes B2B sales, resultaatgericht onderhandelen en de transformatieve kracht van kunstmatige intelligentie in het commerciële speelveld.",
