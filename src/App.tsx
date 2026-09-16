@@ -114,6 +114,7 @@ export default function App() {
             <AboutSection
               portraitSrc={secondaryPhoto}
               onPhotoUpdated={(dataUrl) => setSecondaryPhoto(dataUrl)}
+              onNavigateCareer={() => handleNavigatePage('career')}
             />
 
             {/* Featured Highlight for MY FUTURE CAREER */}

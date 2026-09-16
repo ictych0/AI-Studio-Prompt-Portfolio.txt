@@ -105,8 +105,9 @@ export const InteractivePortraitFrame: React.FC<InteractivePortraitFrameProps> =
           <img
             src={imageSrc}
             alt={label}
+            loading="lazy"
             onError={() => setImgError(true)}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+            className="w-full h-full object-cover object-[center_15%] group-hover:scale-105 transition-transform duration-700 ease-out"
           />
 
           {/* Subtle bottom vignette to protect typography/badges */}
