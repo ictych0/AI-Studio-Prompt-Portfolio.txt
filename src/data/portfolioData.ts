@@ -22,9 +22,9 @@ export const PORTFOLIO_PROFILE: PortfolioProfile = {
   minorName: "Futureproof met AI",
   minorPeriod: "Academiejaar 2025 – 2026",
   
-  // Authentieke portretten van Tycho Somers (geplaatst via de directe uploader / localStorage)
-  portraitImage: "",
-  secondaryPortrait: "",
+  // Authentieke portretten van Tycho Somers (vastgelegd in public/images/ voor productie & Vercel)
+  portraitImage: "/images/tycho-hero.jpg",
+  secondaryPortrait: "/images/tycho-about.jpg",
   
   aboutStory: {
     whoAmI: "Ik ben Tycho Somers, student Commerciële Economie met een passie voor high-stakes B2B sales, resultaatgericht onderhandelen en de transformatieve kracht van kunstmatige intelligentie in het commerciële speelveld.",

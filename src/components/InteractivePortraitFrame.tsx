@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Upload, Camera, Check } from 'lucide-react';
 import { savePrimaryPhoto, saveSecondaryPhoto } from '../utils/photoStorage';
 
@@ -25,6 +25,10 @@ export const InteractivePortraitFrame: React.FC<InteractivePortraitFrameProps> =
   const [imgError, setImgError] = useState(false);
   const [justUploaded, setJustUploaded] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setImgError(false);
+  }, [imageSrc]);
 
   const processFile = (file: File) => {
     if (!file.type.startsWith('image/')) return;

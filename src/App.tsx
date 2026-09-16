@@ -11,7 +11,7 @@ import { PhotoManagerModal } from './components/PhotoManagerModal';
 import { FadeInCard } from './components/FadeInCard';
 import { Sparkles, ArrowRight, Camera } from 'lucide-react';
 import { PORTFOLIO_PROFILE } from './data/portfolioData';
-import { getStoredPrimaryPhoto, getStoredSecondaryPhoto } from './utils/photoStorage';
+import { getStoredPrimaryPhoto, getStoredSecondaryPhoto, syncAllPhotosToServer } from './utils/photoStorage';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<'career' | 'portfolio'>(() => {
@@ -26,6 +26,11 @@ export default function App() {
   // State for original photos
   const [primaryPhoto, setPrimaryPhoto] = useState<string | null>(() => getStoredPrimaryPhoto());
   const [secondaryPhoto, setSecondaryPhoto] = useState<string | null>(() => getStoredSecondaryPhoto());
+
+  // Auto-sync stored browser photos to disk for permanent Vercel deployment
+  useEffect(() => {
+    syncAllPhotosToServer();
+  }, []);
 
   // Listen to photo storage events across components
   useEffect(() => {

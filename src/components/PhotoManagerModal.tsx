@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Upload, CheckCircle2, RotateCcw, Image as ImageIcon } from 'lucide-react';
+import { Upload, CheckCircle2, RotateCcw, Image as ImageIcon, Save, ExternalLink } from 'lucide-react';
 import {
   getStoredPrimaryPhoto,
   getStoredSecondaryPhoto,
   savePrimaryPhoto,
   saveSecondaryPhoto,
-  resetPhotos
+  resetPhotos,
+  syncAllPhotosToServer
 } from '../utils/photoStorage';
 
 interface PhotoManagerProps {
@@ -22,6 +23,8 @@ export const PhotoManagerModal: React.FC<PhotoManagerProps> = ({
   const [primaryUrl, setPrimaryUrl] = useState<string | null>(() => getStoredPrimaryPhoto());
   const [secondaryUrl, setSecondaryUrl] = useState<string | null>(() => getStoredSecondaryPhoto());
   const [statusMsg, setStatusMsg] = useState<string>('');
+  const [isSavingPermanent, setIsSavingPermanent] = useState(false);
+  const [permanentSuccess, setPermanentSuccess] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -37,7 +40,7 @@ export const PhotoManagerModal: React.FC<PhotoManagerProps> = ({
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = (event) => {
+    reader.onload = async (event) => {
       const result = event.target?.result as string;
       if (result) {
         if (target === 'primary') {
@@ -49,11 +52,20 @@ export const PhotoManagerModal: React.FC<PhotoManagerProps> = ({
           saveSecondaryPhoto(result);
           onUpdatePhotos(primaryUrl || '', result);
         }
-        setStatusMsg(`✓ Foto succesvol 1-op-1 ingeladen!`);
+        setStatusMsg(`✓ Foto succesvol ingeladen en opgeslagen!`);
         setTimeout(() => setStatusMsg(''), 4000);
       }
     };
     reader.readAsDataURL(file);
+  };
+
+  const handleSavePermanently = async () => {
+    setIsSavingPermanent(true);
+    const res = await syncAllPhotosToServer();
+    setIsSavingPermanent(false);
+    setPermanentSuccess(true);
+    setStatusMsg(`✓ Succes! Beide foto's zijn nu als vaste bestanden in /public/images/ opgeslagen voor Vercel & productie!`);
+    setTimeout(() => setStatusMsg(''), 7000);
   };
 
   const handleClear = () => {
@@ -177,6 +189,28 @@ export const PhotoManagerModal: React.FC<PhotoManagerProps> = ({
               />
             </label>
           </div>
+        </div>
+
+        {/* Vercel & Deployment Permanent Export Section */}
+        <div className="mt-6 p-4 rounded bg-[#141414] border border-[#b8860b]/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <span className="text-xs font-bold text-[#f0ece4] flex items-center gap-1.5 font-mono">
+              <Save className="w-3.5 h-3.5 text-[#b8860b]" />
+              <span>Vercel / Permanente Export</span>
+            </span>
+            <p className="text-[11px] text-[#8a8a8a] mt-0.5 max-w-md">
+              Klik hieronder om de geüploade foto's direct als fysieke bestanden in <code className="text-[#b8860b]">/public/images/</code> op te slaan. Zodra je daarna naar Vercel deployt, blijven de foto's altijd permanent zichtbaar voor iedereen.
+            </p>
+          </div>
+
+          <button
+            onClick={handleSavePermanently}
+            disabled={isSavingPermanent || (!primaryUrl && !secondaryUrl)}
+            className="w-full sm:w-auto px-5 py-2.5 bg-emerald-700 hover:bg-emerald-600 disabled:opacity-50 disabled:pointer-events-none text-white text-xs font-bold font-mono uppercase tracking-wider rounded transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-lg whitespace-nowrap"
+          >
+            <Save className="w-3.5 h-3.5" />
+            <span>{isSavingPermanent ? 'Opslaan...' : 'Vastleggen voor Vercel'}</span>
+          </button>
         </div>
 
         <div className="mt-6 pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
